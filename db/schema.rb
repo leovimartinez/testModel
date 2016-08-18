@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818012244) do
+ActiveRecord::Schema.define(version: 20160818014413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 20160818012244) do
 
   add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree
 
+  create_table "salons", force: :cascade do |t|
+    t.string   "nombre"
+    t.integer  "curso_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "salons", ["curso_id"], name: "index_salons_on_curso_id", using: :btree
+
   create_table "tasks", force: :cascade do |t|
     t.string   "title"
     t.string   "note"
@@ -82,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160818012244) do
 
   add_foreign_key "alumnos", "cursos"
   add_foreign_key "lists", "users"
+  add_foreign_key "salons", "cursos"
   add_foreign_key "tasks", "lists"
   add_foreign_key "usuarios", "carreras"
 end
